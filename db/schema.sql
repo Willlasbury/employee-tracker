@@ -15,7 +15,7 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(30) NOT NULL,
         salary DECIMAL NOT NULL,
-        department_id INT NOT NULL,
+        department_id INT,
         FOREIGN key (department_id) REFERENCES department(id) ON DELETE
         SET NULL
     );

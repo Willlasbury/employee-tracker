@@ -6,7 +6,7 @@ INSERT INTO department (name)
 
 
 INSERT INTO role (title, salary, department_id) 
-    VALUES ("Manager", "2", 1);
+    VALUES ("Manager", "2.50", 1);
 
 INSERT INTO role (title, salary, department_id) 
     VALUES ("Weaver", "15.50", 1);
