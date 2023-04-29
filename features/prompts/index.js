@@ -12,9 +12,7 @@ const init = async () => {
     { req: "update an emplyee role", res: 7 },
   ];
 
-  const promptChoices = options.map((item) => {
-    return item.req;
-  });
+  const promptChoices = options.map(item => item.req);
 
   let prompt = await inq.prompt([
     {
