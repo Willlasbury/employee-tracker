@@ -1,29 +1,19 @@
-const getAllDepartments = async () => {
+const inq = require("inquirer");
+const departmentFetch = require("./api");
+
+const addDepartmentPrompt = async () => {
   try {
-    const results = await fetch("http://localhost:3000/departments/", {
-      method: "GET",
-    });
-    const json = await results.json();
-    return json;
+    const prompt = await inq.prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the name of the department?",
+      },
+    ]);
+    departmentFetch.addDepartment(prompt.name);
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 
-const getOneDepartment = () => {
-  const func = async (id) => {
-    let results = await fetch(`http://localhost:3000/departments/${id}`, {
-      method: "GET",
-    });
-
-    let data = await results.json();
-
-    return data;
-  };
-};
-// getAllDepartments().then(
-// data =>
-//     console.log(data)
-//     )
-
-module.exports = { getAllDepartments, getOneDepartment };
+module.exports = addDepartmentPrompt;

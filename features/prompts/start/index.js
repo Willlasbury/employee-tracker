@@ -1,50 +1,71 @@
 const inq = require("inquirer");
-const departmentFetch = require('../departments')
-const roleFetch = require('../roles')
-const employeeFetch = require('../employees')
-
+const addDepartment = require("../departments");
+const addEmployee = require("../employees");
+const addRole = require("../roles");
+const departmentFetch = require("../departments/api");
+const roleFetch = require("../roles/api");
+const employeeFetch = require("../employees/api");
 
 const start = async () => {
-    try{
-  const options = await [
-    { req: "view all departments", res: departmentFetch.getAllDepartments()},
-    { req: "view all roles", res: roleFetch.getAllRoles()},
-    { req: "view all employees", res: employeeFetch.getAllEmployees() },
-    { req: "add a department", res: 4 },
-    { req: "add a role", res: 5 },
-    { req: "add an emplyee", res: 6 },
-    { req: "update an emplyee role", res: 7 },
-  ];
+  // const func = () => {console.log('hello')}
 
-  const promptChoices = await options.map(item => item.req);
+  // let storage = [{
+  //   newfunc: func
+  // }]
 
-  let prompt = await inq.prompt([
-    {
-      type: "list",
-      name: "start",
-      message: "What would you like to do?",
-      choices: promptChoices,
-    },
-  ]);
+  // if (storage[0]){
+  //   console.log("test")
+  //   storage[0].newfunc()
+  // }
+  try {
+    const options = [
+      {
+        req: "view all departments",
+        params: false,
+        res: departmentFetch.getAllDepartments,
+      },
+      { req: "view all roles", params: false, res: roleFetch.getAllRoles },
+      {
+        req: "view all employees",
+        params: false,
+        res: employeeFetch.getAllEmployees,
+      },
+      { req: "add a department", 
+        params: true, 
+        res: addDepartment 
+      },
+      { req: "add a role", params: true, res: addRole },
+      { req: "add an emplyee", params: true, res: addEmployee },
+      { req: "update an emplyee role", params: true, res: 7 },
+    ];
 
-  for (let i = 0; i < options.length; i++) {
-    const request = options[i].req;
-    if (request === prompt.start) {
-      const response = await options[i].res;
-      console.log("response:", response)
-       const data = await response;
-       return data
+    const promptChoices = await options.map((item) => item.req);
 
+    let prompt = await inq.prompt([
+      {
+        type: "list",
+        name: "start",
+        message: "What would you like to do?",
+        choices: promptChoices,
+      },
+    ]);
 
+    for (let i = 0; i < options.length; i++) {
+      const request = options[i].req;
+      if (request === prompt.start) {
+        // if (!options[i].params) {
+        const response = await options[i].res();
+        // return response;
+        // } else {
+        //   console.log("test")
+        //   const response = await options[i].res();
+        //   return response
+        // }
+      }
     }
-  }} catch (err) {
-    throw error
+  } catch (err) {
+    throw error;
   }
 };
-
-// console.log("init():", init())
-// const data = init().then(data=>console.log(data))
-// console.log("data:", data)
-// init().then(data=>console.log(data))
 
 module.exports = start;

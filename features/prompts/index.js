@@ -2,9 +2,11 @@ const inq = require("inquirer");
 const start = require("./start");
 
 const init = async () => {
-    console.log("init")
-  const data = start().then((data) => console.log(data));
-  return data;
+  try {
+    await start().then((data) => console.log(data));
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = init;
