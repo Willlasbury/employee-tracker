@@ -11,7 +11,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const allRoutes = require('./controllers');
+const allRoutes = require('./features/crud');
 app.use(allRoutes)
 
 app.listen(PORT,()=>{

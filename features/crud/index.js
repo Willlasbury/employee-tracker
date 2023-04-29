@@ -1,12 +1,6 @@
-const mysql = require('mysql2');
+const router = require('express').Router()
 
-const db = mysql.createConnection(
-    {
-        host: '127.0.0.1',
-        user: 'root',
-        password: 'password',
-        database: 'company'
-    }
-)
+const departmentRoutes = require('./department')
+router.use("/departments", departmentRoutes)
 
-module.exports = db
+module.exports = router
