@@ -1,10 +1,12 @@
 const express = require("express");
 const init = require('./features/prompts')
-// const inq = require("inquirer");
+const cors = require("cors")
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors())
 app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -17,4 +19,4 @@ app.listen(PORT, () => {
   console.log("listening on port http://localhost:" + PORT);
 })
 
-init();
+init()
