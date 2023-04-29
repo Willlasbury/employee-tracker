@@ -16,8 +16,9 @@ CREATE TABLE
         title VARCHAR(30) NOT NULL,
         salary DECIMAL NOT NULL,
         department_id INT,
-        FOREIGN key (department_id) REFERENCES departments(id) ON DELETE
-        SET NULL
+        FOREIGN key (department_id) 
+        REFERENCES departments(id)
+        ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -27,8 +28,12 @@ CREATE TABLE
         last_name VARCHAR(30) NOT NULL,
         role_id INT NOT NULL,
         manager_id INT,
-        Foreign Key (role_id) REFERENCES roles(id),
-        Foreign Key (manager_id) REFERENCES employees(id)
+        Foreign Key (role_id) 
+        REFERENCES roles(id) 
+        ON DELETE CASCADE,
+        Foreign Key (manager_id) 
+        REFERENCES employees(id)
+        ON DELETE SET NULL
     );
 
 SOURCE seeds.sql;
