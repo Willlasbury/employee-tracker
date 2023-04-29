@@ -1,23 +1,38 @@
 const inq = require("inquirer");
 
+
 const init = async () => {
-   await inq.prompt([
-        {
-            type: "list",
-            name: "init",
-            message: "What would you like to do?",
-            choices: [
-                "view all departments",
-                "view all roles",
-                "view all employees",
-                "add a departments",
-                "add a role",
-                "add an emplyee",
-                "update an emplyee role"
-            ]
+  const options = [
+    { req: "view all departments", res: 1 },
+    { req: "view all roles", res: 2 },
+    { req: "view all employees", res: 3 },
+    { req: "add a department", res: 4 },
+    { req: "add a role", res: 5 },
+    { req: "add an emplyee", res: 6 },
+    { req: "update an emplyee role", res: 7 },
+  ];
 
-        }
-    ])
-}
+  const promptChoices = options.map((item) => {
+    return item.req;
+  });
 
-init()
+  let prompt = await inq.prompt([
+    {
+      type: "list",
+      name: "init",
+      message: "What would you like to do?",
+      choices: promptChoices,
+    },
+  ]);
+
+  for (let i = 0; i < options.length; i++) {
+    const request = options[i].req;
+    const response = options[i].res;
+    if (request === prompt.init) {
+      return console.log(response);
+    }
+  }
+};
+console.log(init());
+
+module.exports = init;
