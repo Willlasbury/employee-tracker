@@ -1,13 +1,10 @@
 const inq = require("inquirer");
-const start = require("./init")
-
+const start = require("./start");
 
 const init = async () => {
-
-    const data = start().then(data=>console.log(data))
-    return data
-
-}
-
+    console.log("init")
+  const data = start().then((data) => console.log(data));
+  return data;
+};
 
 module.exports = init;

@@ -1,12 +1,15 @@
 const inq = require("inquirer");
-const depFetch = require('../departments')
+const departmentFetch = require('../departments')
+const roleFetch = require('../roles')
+const employeeFetch = require('../employees')
+
 
 const start = async () => {
     try{
   const options = await [
-    { req: "view all departments", res: 1 },
-    { req: "view all roles", res: 2 },
-    { req: "view all employees", res: 3 },
+    { req: "view all departments", res: departmentFetch.getAllDepartments()},
+    { req: "view all roles", res: roleFetch.getAllRoles()},
+    { req: "view all employees", res: employeeFetch.getAllEmployees() },
     { req: "add a department", res: 4 },
     { req: "add a role", res: 5 },
     { req: "add an emplyee", res: 6 },
@@ -26,10 +29,10 @@ const start = async () => {
 
   for (let i = 0; i < options.length; i++) {
     const request = options[i].req;
-    const response = options[i].res;
-    console.log("request:", request)
     if (request === prompt.start) {
-       const data = await depFetch.getAllDepartments().then(data=>data);
+      const response = await options[i].res;
+      console.log("response:", response)
+       const data = await response;
        return data
 
 
