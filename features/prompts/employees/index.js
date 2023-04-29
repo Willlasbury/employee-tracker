@@ -1,8 +1,16 @@
 const inq = require("inquirer");
 const employeeFetch = require("./api");
+const getRoles = require("../roles/api/")
 
 const addEmployeePrompt = async () => {
   try {
+
+    const roles = await getRoles.getAllRoleTitles()
+   
+    const roleArr = roles.map(item => item.title)
+
+
+
     const prompt = await inq.prompt([
       {
         type: "input",
@@ -15,9 +23,10 @@ const addEmployeePrompt = async () => {
         message: "What is the last name of the employee?",
       },
       {
-        type: "input",
+        type: "list",
         name: "role_id",
-        message: "What is the role id of the employee?",
+        message: "What is the role of the employee?",
+        choices: roleArr
       },
       {
         type: "input",
@@ -25,14 +34,16 @@ const addEmployeePrompt = async () => {
         message: "What is the manager id of the employee?",
       },
     ]);
+
     employeeFetch.addEmployee(
       prompt.first_name,
       prompt.last_name,
       prompt.role_id,
       prompt.manager_id
     );
+
   } catch (err) {
-    throw err;
+  throw console.log(err);
   }
 };
 

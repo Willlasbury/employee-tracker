@@ -10,9 +10,13 @@ const addDepartmentPrompt = async () => {
         message: "What is the name of the department?",
       },
     ]);
-    departmentFetch.addDepartment(prompt.name);
+    const response = await departmentFetch.addDepartment(prompt.name);
+    
+    if (response.statusText === 'OK'){
+      console.log(`\nYou have added ${prompt.name} to the Departments.`)
+    }
   } catch (err) {
-    throw err;
+    throw console.log(err);
   }
 };
 

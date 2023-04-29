@@ -6,7 +6,7 @@ const getAllEmployees = async () => {
       const json = await results.json();
       return json;
     } catch (err) {
-      console.error(err);
+      throw console.log(err);
     }
   };
   
@@ -38,8 +38,9 @@ const addEmployee = async (firstName, lastName, roleId, managerId) => {
       body: JSON.stringify(newEmployee)
     });
     
+    console.log(`You have add ${firstName} ${lastName} to your employee list.`)
   } catch (err) {
-    throw err
+    throw console.log(err);
   }
 }
 

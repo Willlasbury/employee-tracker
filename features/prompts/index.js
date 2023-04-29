@@ -3,9 +3,11 @@ const start = require("./start");
 
 const init = async () => {
   try {
-    await start().then((data) => console.log(data));
+    await start();
+    console.log('\n')
+    init()
   } catch (err) {
-    throw err;
+    throw console.log(err);
   }
 };
 

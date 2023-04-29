@@ -6,15 +6,24 @@ const getAllRoles = async () => {
     const json = await results.json();
     return json;
   } catch (err) {
-    console.error(err);
+    throw console.log(err);
   }
 };
 
-// let data = getAllRoles().then(data=>data)
-// console.log("data:", data)
+const getAllRoleTitles = async () => {
+  try {
+    const results = await fetch("http://localhost:3000/roles/titles", {
+      method: "GET",
+    });
+    const json = await results.json();
+    return json;
+  } catch (err) {
+    throw console.log(err);
+  }
+};
 
-const getOneRole = () => {
-  const func = async (id) => {
+const getOneRole = async () => {
+  try {
     let results = await fetch(`http://localhost:3000/roles/${id}`, {
       method: "GET",
     });
@@ -22,8 +31,11 @@ const getOneRole = () => {
     let data = await results.json();
 
     return data;
+  } catch (err) {
+    throw console.log(err);
+  }
   };
-};
+
 
 const addRole = async (title, salary, deparmentId) => {
   try {
@@ -39,8 +51,8 @@ const addRole = async (title, salary, deparmentId) => {
       body: JSON.stringify(newEmployee),
     });
   } catch (err) {
-    throw err;
+    throw console.log(err);
   }
 };
 
-module.exports = { getAllRoles, getOneRole, addRole };
+module.exports = { getAllRoles, getOneRole, addRole, getAllRoleTitles };

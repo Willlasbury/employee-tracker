@@ -26,7 +26,7 @@ const addRolePrompt = async () => {
       prompt.department
     );
   } catch (err) {
-    throw err;
+    throw console.log(err);
   }
 };
 

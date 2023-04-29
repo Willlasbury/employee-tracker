@@ -6,7 +6,7 @@ const getAllDepartments = async () => {
     const json = await results.json();
     return json;
   } catch (err) {
-    console.error(err);
+    throw console.log(err);
   }
 };
 
@@ -25,24 +25,20 @@ const getOneDepartment = () => {
 const addDepartment = async (name) => {
   try {
     const newDepartment = {
-      new_department: name
-    }
+      new_department: name,
+    };
 
     const result = await fetch(`http://localhost:3000/departments/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newDepartment)
+      body: JSON.stringify(newDepartment),
     });
-    
-    // let response = await result.json()
-    
-    // if (response.affectedRows === 1){
-    //   console.log('success')
-    // }
 
+    return result
+    
   } catch (err) {
-    throw err;
-  }}
-
+    throw console.log(err);
+  }
+};
 
 module.exports = { getAllDepartments, getOneDepartment, addDepartment };
