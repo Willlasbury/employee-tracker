@@ -2,7 +2,7 @@ const inq = require("inquirer");
 
 
 const init = async () => {
-  const options = [
+  const options = await [
     { req: "view all departments", res: 1 },
     { req: "view all roles", res: 2 },
     { req: "view all employees", res: 3 },
@@ -12,7 +12,7 @@ const init = async () => {
     { req: "update an emplyee role", res: 7 },
   ];
 
-  const promptChoices = options.map(item => item.req);
+  const promptChoices = await options.map(item => item.req);
 
   let prompt = await inq.prompt([
     {
@@ -31,6 +31,5 @@ const init = async () => {
     }
   }
 };
-console.log(init());
 
 module.exports = init;
