@@ -1,10 +1,10 @@
-USE company;
+USE company_db;
 
-INSERT INTO department (name)
+INSERT INTO departments (name)
 VALUES ("Underwater Basket Weaving"), ("Wheel Designers"), ("Boat Sinking"), ("Napping");
 
 INSERT INTO
-    role (title, salary, department_id) VALUES 
+    roles (title, salary, department_id) VALUES 
 ("UBW Manager", "2.50", 1), 
 ("Weaver", "15.50", 1), 
 ("WD Manager", "2.50", 2), 
@@ -15,7 +15,7 @@ INSERT INTO
 ("Pillow Fluffer", "15.50", 4);
 
 INSERT INTO
-    employee (
+    employees (
         first_name,
         last_name,
         role_id,
