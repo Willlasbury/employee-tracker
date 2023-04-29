@@ -5,7 +5,6 @@ let db = require('../../../db')
 // get all roles
 router.get('/', (req, res)=>{
     db.query(`SELECT * FROM roles;`, (err, data)=>{
-        console.log("data:", data)
         if (err) {
            return res.status(500).json({msg: "well now", err:err})
         } 
@@ -18,7 +17,6 @@ router.get('/', (req, res)=>{
 router.get('/:id', (req, res)=>{
     const id = req.params.id
     db.query(`SELECT * FROM roles WHERE id=?;`,[id], (err, data)=>{
-        console.log("data:", data)
         if (err) {
            return res.status(500).json({msg: "well meow", err:err})
         } else res.json(data)

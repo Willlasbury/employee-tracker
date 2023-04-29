@@ -5,11 +5,9 @@ let db = require('../../../db')
 // get all departments
 router.get('/', (req, res)=>{
     db.query(`SELECT * FROM departments;`, (err, data)=>{
-        console.log("data:", data)
         if (err) {
            return res.status(500).json({msg: "well now", err:err})
         } 
-            // console.log("data:", data)
             res.json(data)
        
     })
@@ -19,7 +17,6 @@ router.get('/', (req, res)=>{
 router.get('/:id', (req, res)=>{
     const id = req.params.id
     db.query(`SELECT * FROM departments WHERE id=?;`,[id], (err, data)=>{
-        console.log("data:", data)
         if (err) {
            return res.status(500).json({msg: "well meow", err:err})
         } else res.json(data)
