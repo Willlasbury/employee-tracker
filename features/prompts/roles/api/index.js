@@ -42,7 +42,7 @@ const addRole = async (title, salary, deparmentId) => {
     const newEmployee = {
       title: title,
       salary: salary,
-      deparment: deparmentId,
+      department_id: deparmentId,
     };
 
     const result = await fetch(`http://localhost:3000/roles/`, {
@@ -50,6 +50,7 @@ const addRole = async (title, salary, deparmentId) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newEmployee),
     });
+    return result
   } catch (err) {
     throw console.log(err);
   }

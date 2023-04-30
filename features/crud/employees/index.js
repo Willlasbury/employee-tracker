@@ -13,6 +13,17 @@ router.get('/', (req, res)=>{
     })
 })
 
+// get managers
+router.get('/managers', (req, res)=>{
+    db.query(`SELECT * FROM employees WHERE manager_id IS NULL;`, (err, data)=>{
+        if (err) {
+           return res.status(500).json({msg: "well now", err:err})
+        } 
+            res.json(data)
+       
+    })
+})
+
 // get one role
 router.get('/:id', (req, res)=>{
     const id = req.params.id

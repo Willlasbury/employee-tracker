@@ -1,3 +1,1 @@
-SELECT * FROM employee 
-JOIN role
-WHERE manager_id IS NOT NULL
+SELECT * FROM employees WHERE manager_id IS NULL;

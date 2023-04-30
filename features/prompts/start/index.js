@@ -18,12 +18,12 @@ const start = async () => {
       { req: "view all roles",  diplay: true, res: roleFetch.getAllRoles },
       {
         req: "view all employees",
-         diplay: true,
+        diplay: true,
         res: employeeFetch.getAllEmployees,
       },
-      { req: "add a department", params: true, res: addDepartment },
       { req: "add a role", params: true, res: addRole },
       { req: "add an emplyee", params: true, res: addEmployee },
+      { req: "add a department", params: true, res: addDepartment },
       { req: "update an emplyee role", params: true, res: 7 },
     ];
 

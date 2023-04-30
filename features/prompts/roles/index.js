@@ -1,8 +1,13 @@
 const inq = require("inquirer");
 const roleFetch = require("./api");
+const getDepartments = require('../departments/api')
 
 const addRolePrompt = async () => {
   try {
+
+    const departments = await getDepartments.getAllDepartments();
+    const departmentsArr = departments.map((item) => item.name);
+
     const prompt = await inq.prompt([
       {
         type: "input",
@@ -15,16 +20,36 @@ const addRolePrompt = async () => {
         message: "What is the salary of the role?",
       },
       {
-        type: "input",
+        type: "list",
         name: "department",
         message: "What is the department id of the role?",
+        choices: departmentsArr
       }
     ]);
-    roleFetch.addRole(
+    
+    // get role id
+    const filterDepartments = departments.filter((value) => {
+      if (value.name === prompt.department) return value;
+    });
+
+    console.log("filterDepartments:", filterDepartments)
+    const departmentId = filterDepartments[0].id;
+    console.log("departmentId:", departmentId)
+
+
+    const response = await roleFetch.addRole(
       prompt.title,
       prompt.salary,
-      prompt.department
+      departmentId
     );
+
+    if (response.statusText === "OK") {
+      console.log(
+        `\nYou have added ${prompt.title} to your department.`
+      );
+    } else {
+      console.log(`Error: ${response}`);
+    }
   } catch (err) {
     throw console.log(err);
   }
