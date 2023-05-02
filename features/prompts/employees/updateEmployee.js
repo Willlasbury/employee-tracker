@@ -2,16 +2,20 @@ const inq = require("inquirer");
 const employeeFetch = require("../../api/employees");
 const getRoles = require("../../api/roles");
 
-
-
 const updateEmployeeRolePrompt = async () => {
   try {
     // get all employees
     const employees = await employeeFetch.getAllEmployees();
-    const employeesArr = employees.map((item) => item.title);
+    const employeesArr = employees.map(
+      (employee) => `${employee.first_name} ${employee.last_name}`
+    );
     // get roles for the prompt
     const roles = await getRoles.getAllRoles();
-    const roleArr = roles.map((item) => item.title);
+    const rolesArr = roles.map((role) => role.title);
+
+    // console.log("employees:", employees)
+    // console.log("rolesArr:", rolesArr)
+    // console.log("employeeArr:", employeesArr)
 
     // create prompt
     const prompt = await inq.prompt([
@@ -19,38 +23,42 @@ const updateEmployeeRolePrompt = async () => {
         type: "list",
         name: "employee",
         message: "Which employee's role do you want to change?",
-        choices: employeesArr
+        choices: employeesArr,
       },
       {
         type: "list",
         name: "role",
         message: "Which role should they have?",
-        choices: roleArr
-      }
+        choices: rolesArr,
+      },
     ]);
 
-    // // get role id
-    // const filterRoles = roles.filter((value) => {
-    //   if (value.title === prompt.role) return value;
-    // });
-    // const roleId = filterRoles[0].id;
+    // get employee id
+    const filteredEmployee = employees.filter((employee) => {
+      if (`${employee.first_name} ${employee.last_name}` === prompt.employee) {
+        return employee;
+      }
+    });
 
-    
+    const employeeId = filteredEmployee[0].id;
 
+    // get role id
+    const filterRoles = roles.filter((value) => {
+      if (value.title === prompt.role) return value;
+    });
 
-    // // call function to create employee
-    // const response = await employeeFetch.updateEmployee(
-      
-    // );
+    const roleId = filterRoles[0].id;
 
-    // // console.log(response)
-    // if (response.statusText === "OK") {
-    //   console.log(
-    //     `\nYou have added ${prompt.first_name} ${prompt.last_name} to your employees.`
-    //   );
-    // } else {
-    //   console.log(`Error: ${response.statusText}`);
-    // }
+    // call function to create employee
+    const response = await employeeFetch.updateEmployeeRole(employeeId, roleId);
+  
+    if (response.affectedRows === 1) {
+      console.log(
+        `\nYou have changed ${filteredEmployee[0].first_name}'s role.`
+      );
+    } else {
+      console.log(`Error: ${response.statusText}`);
+    }
   } catch (err) {
     throw console.log(err);
   }

@@ -11,6 +11,7 @@ const updateEmployeeRolePrompt = require("../employees/updateEmployee");
 const start = async () => {
   try {
     const options = [
+      { req: "update an emplyee role", params: true, res: updateEmployeeRolePrompt },
       {
         req: "view all departments",
         diplay: true,
@@ -25,7 +26,6 @@ const start = async () => {
       { req: "add a role", params: true, res: addRole },
       { req: "add an emplyee", params: true, res: addEmployee },
       { req: "add a department", params: true, res: addDepartment },
-      { req: "update an emplyee role", params: true, res: updateEmployeeRolePrompt },
     ];
 
     const promptChoices = await options.map((item) => item.req);

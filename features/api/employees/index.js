@@ -58,17 +58,15 @@ const addEmployee = async (firstName, lastName, roleId, managerId) => {
   }
 };
 
-const updateEmployee = async (firstName, lastName, roleId, managerId) => {
+const updateEmployeeRole = async (id, roleId) => {
   try {
+    updateBody = {
+      role_id: id
+    }
     let results = await fetch(`http://localhost:3000/employees/${id}`, {
       method: "PUT",
       headers: {"Content-type": "application/json"},
-      body: {
-        first_name: firstName,
-        last_name: lastName,
-        role_id: roleId,
-        manager_id: managerId
-      }
+      body: JSON.stringify(updateBody)
     });
 
     let data = await results.json();
@@ -79,4 +77,4 @@ const updateEmployee = async (firstName, lastName, roleId, managerId) => {
   }
   };
 
-module.exports = { getAllEmployees, getOneEmployee, addEmployee, getAllManagers, updateEmployee };
+module.exports = { getAllEmployees, getOneEmployee, addEmployee, getAllManagers, updateEmployeeRole };

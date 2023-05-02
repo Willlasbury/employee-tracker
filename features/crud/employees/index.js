@@ -52,13 +52,11 @@ router.post('/', (req, res)=>{
 
 // update role
 router.put('/:id', (req, res)=>{
-    const id = req.params.id;
-    const first_name = req.body.first_name
-    const last_name = req.body.last_name
+    
     const roleId = req.body.role_id
-    const managerId = req.body.manager_id
+    const id = req.params.id
 
-    db.query(`UPDATE employees SET first_name=?, last_name=?, role_id=?, manager_id=? WHERE id=?`, [first_name, last_name, roleId, managerId, id], (err, data) => {
+    db.query(`UPDATE employees SET role_id=? WHERE id=?`, [roleId, id], (err, data) => {
         if (err) {
             return res.status(500).json({msg: "well meow", err:err})
         } else res.json(data)
