@@ -11,21 +11,21 @@ const updateEmployeeRolePrompt = require("../employees/updateEmployee");
 const start = async () => {
   try {
     const options = [
-      { req: "update an emplyee role", params: true, res: updateEmployeeRolePrompt },
+      { req: "update an emplyee role", display:false, res: updateEmployeeRolePrompt },
       {
         req: "view all departments",
-        diplay: true,
+        display: true,
         res: departmentFetch.getAllDepartments,
       },
-      { req: "view all roles",  diplay: true, res: roleFetch.getAllRoles },
+      { req: "view all roles",  display: true, res: roleFetch.getAllRoles },
       {
         req: "view all employees",
-        diplay: true,
+        display: true,
         res: employeeFetch.getAllEmployees,
       },
-      { req: "add a role", params: true, res: addRole },
-      { req: "add an emplyee", params: true, res: addEmployee },
-      { req: "add a department", params: true, res: addDepartment },
+      { req: "add a role", display:false, res: addRole },
+      { req: "add an emplyee", display:false, res: addEmployee },
+      { req: "add a department", display:false, res: addDepartment },
     ];
 
     const promptChoices = await options.map((item) => item.req);
@@ -43,7 +43,7 @@ const start = async () => {
       const option = options[i]
       const request = option.req;
       if (request === prompt.start) {
-        if (options[i].diplay){
+        if (options[i].display){
         const response = await option.res();
         console.table("response:", response)
       } else {
