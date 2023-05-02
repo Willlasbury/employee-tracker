@@ -1,5 +1,6 @@
 const router = require('express').Router()
 
+// get and use all of the routers
 const departmentRoutes = require('./departments')
 router.use("/departments", departmentRoutes)
 

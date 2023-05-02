@@ -65,7 +65,7 @@ const addEmployee = async (firstName, lastName, roleId, managerId) => {
 const updateEmployeeRole = async (id, roleId) => {
   try {
     updateBody = {
-      role_id: id
+      role_id: roleId
     }
     let results = await fetch(`http://localhost:3000/employees/${id}`, {
       method: "PUT",
