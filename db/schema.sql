@@ -36,4 +36,4 @@ CREATE TABLE
         ON DELETE SET NULL
     );
 
-SOURCE seeds.sql;
+-- SOURCE seeds.sql;
