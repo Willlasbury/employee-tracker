@@ -1,6 +1,6 @@
 const inq = require("inquirer");
-const roleFetch = require("./api");
-const getDepartments = require('../departments/api')
+const roleFetch = require("../../api/roles");
+const getDepartments = require('../../api/departments')
 
 const addRolePrompt = async () => {
   try {
@@ -32,9 +32,7 @@ const addRolePrompt = async () => {
       if (value.name === prompt.department) return value;
     });
 
-    console.log("filterDepartments:", filterDepartments)
     const departmentId = filterDepartments[0].id;
-    console.log("departmentId:", departmentId)
 
 
     const response = await roleFetch.addRole(
@@ -45,7 +43,7 @@ const addRolePrompt = async () => {
 
     if (response.statusText === "OK") {
       console.log(
-        `\nYou have added ${prompt.title} to your department.`
+        `\nYou have added ${prompt.title} to your roles.`
       );
     } else {
       console.log(`Error: ${response}`);

@@ -22,8 +22,8 @@ const getAllManagers = async () => {
   }
 };
 
-const getOneEmployee = () => {
-  const func = async (id) => {
+const getOneEmployee = async () => {
+  try {
     let results = await fetch(`http://localhost:3000/employees/${id}`, {
       method: "GET",
     });
@@ -31,8 +31,11 @@ const getOneEmployee = () => {
     let data = await results.json();
 
     return data;
+  } catch (err) {
+    throw console.log(err);
+  }
   };
-};
+
 
 const addEmployee = async (firstName, lastName, roleId, managerId) => {
   try {
@@ -55,4 +58,25 @@ const addEmployee = async (firstName, lastName, roleId, managerId) => {
   }
 };
 
-module.exports = { getAllEmployees, getOneEmployee, addEmployee, getAllManagers };
+const updateEmployee = async (firstName, lastName, roleId, managerId) => {
+  try {
+    let results = await fetch(`http://localhost:3000/employees/${id}`, {
+      method: "PUT",
+      headers: {"Content-type": "application/json"},
+      body: {
+        first_name: firstName,
+        last_name: lastName,
+        role_id: roleId,
+        manager_id: managerId
+      }
+    });
+
+    let data = await results.json();
+
+    return data;
+  } catch (err) {
+    throw console.log(err);
+  }
+  };
+
+module.exports = { getAllEmployees, getOneEmployee, addEmployee, getAllManagers, updateEmployee };

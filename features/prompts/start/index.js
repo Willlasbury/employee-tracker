@@ -3,9 +3,10 @@ const table = require("console.table")
 const addDepartment = require("../departments");
 const addEmployee = require("../employees");
 const addRole = require("../roles");
-const departmentFetch = require("../departments/api");
-const roleFetch = require("../roles/api");
-const employeeFetch = require("../employees/api");
+const departmentFetch = require("../../api/departments");
+const roleFetch = require("../../api/roles");
+const employeeFetch = require("../../api/employees");
+const updateEmployeeRolePrompt = require("../employees/updateEmployee");
 
 const start = async () => {
   try {
@@ -24,7 +25,7 @@ const start = async () => {
       { req: "add a role", params: true, res: addRole },
       { req: "add an emplyee", params: true, res: addEmployee },
       { req: "add a department", params: true, res: addDepartment },
-      { req: "update an emplyee role", params: true, res: 7 },
+      { req: "update an emplyee role", params: true, res: updateEmployeeRolePrompt },
     ];
 
     const promptChoices = await options.map((item) => item.req);

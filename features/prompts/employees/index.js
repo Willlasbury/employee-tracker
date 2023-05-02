@@ -1,7 +1,7 @@
 const inq = require("inquirer");
-const employeeFetch = require("./api");
-const getRoles = require("../roles/api/");
-const getEmployees = require("./api");
+const employeeFetch = require("../../api/employees");
+const getRoles = require("../../api/roles");
+const getEmployees = require("../../api/employees");
 
 const addEmployeePrompt = async () => {
   try {
@@ -11,14 +11,15 @@ const addEmployeePrompt = async () => {
 
     // get managers for the prompt
     const managers = await getEmployees.getAllManagers();
-    managers.unshift({first_name:"none", last_name:"none", role_id: 0,manager_id: 'NULL'});
+
+    // add a none option for managers
+    managers.unshift({ first_name: "none", last_name: "" });
+
+    // create a list for manager names for the prompt
     const managerArr = managers.map(
       (item) => `${item.first_name} ${item.last_name}`
     );
-      console.log("managers:", managers)
-      console.log("managerArr:", managerArr)
 
-      
     const prompt = await inq.prompt([
       {
         type: "input",
@@ -43,7 +44,6 @@ const addEmployeePrompt = async () => {
         choices: managerArr,
       },
     ]);
-
     // get role id
     const filterRoles = roles.filter((value) => {
       if (value.title === prompt.role) return value;
@@ -51,17 +51,14 @@ const addEmployeePrompt = async () => {
     const roleId = filterRoles[0].id;
 
     // get manager id
-    // if (prompt.manager !== 'none'){
-      const filterManager = managers.filter((value) => {
-        console.log("prompt.manager:", prompt.manager)
-        if (`${value.first_name} ${value.last_name}` === prompt.manager) {
-          return value;
-        } 
-      });
-      
-      
-      const managerId = filterManager[0].manager_id || undefined;
-
+    const filterManager = managers.filter((value) => {
+      if (`${value.first_name} ${value.last_name}` === prompt.manager) {
+        return value;
+      }
+    });
+    // console.log("filterManager:", filterManager)
+    const managerId = filterManager[0].id || undefined;
+    // console.log("managerId:", managerId)
     // call function to create employee
     const response = await employeeFetch.addEmployee(
       prompt.first_name,
