@@ -1,3 +1,4 @@
+// get all employees
 const getAllEmployees = async () => {
   try {
     const results = await fetch("http://localhost:3000/employees/", {
@@ -10,6 +11,7 @@ const getAllEmployees = async () => {
   }
 };
 
+// get all managers (or all employees with manager_id = null)
 const getAllManagers = async () => {
   try {
     const results = await fetch("http://localhost:3000/employees/managers", {
@@ -22,6 +24,7 @@ const getAllManagers = async () => {
   }
 };
 
+// get employee by id
 const getOneEmployee = async () => {
   try {
     let results = await fetch(`http://localhost:3000/employees/${id}`, {
@@ -36,7 +39,7 @@ const getOneEmployee = async () => {
   }
   };
 
-
+// create an employee
 const addEmployee = async (firstName, lastName, roleId, managerId) => {
   try {
     const newEmployee = await {
@@ -58,6 +61,7 @@ const addEmployee = async (firstName, lastName, roleId, managerId) => {
   }
 };
 
+// update an employee's role
 const updateEmployeeRole = async (id, roleId) => {
   try {
     updateBody = {

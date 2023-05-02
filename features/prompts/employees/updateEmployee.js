@@ -4,18 +4,15 @@ const getRoles = require("../../api/roles");
 
 const updateEmployeeRolePrompt = async () => {
   try {
-    // get all employees
+    // get all employees and convert to array of names for the prompt
     const employees = await employeeFetch.getAllEmployees();
     const employeesArr = employees.map(
       (employee) => `${employee.first_name} ${employee.last_name}`
     );
-    // get roles for the prompt
+
+    // get roles and convert to array of titles for the prompt
     const roles = await getRoles.getAllRoles();
     const rolesArr = roles.map((role) => role.title);
-
-    // console.log("employees:", employees)
-    // console.log("rolesArr:", rolesArr)
-    // console.log("employeeArr:", employeesArr)
 
     // create prompt
     const prompt = await inq.prompt([
@@ -33,20 +30,18 @@ const updateEmployeeRolePrompt = async () => {
       },
     ]);
 
-    // get employee id
+    // get specific employee id
     const filteredEmployee = employees.filter((employee) => {
       if (`${employee.first_name} ${employee.last_name}` === prompt.employee) {
         return employee;
       }
     });
-
     const employeeId = filteredEmployee[0].id;
 
     // get role id
     const filterRoles = roles.filter((value) => {
       if (value.title === prompt.role) return value;
     });
-
     const roleId = filterRoles[0].id;
 
     // call function to create employee

@@ -5,6 +5,7 @@ const getDepartments = require('../../api/departments')
 const addRolePrompt = async () => {
   try {
 
+    // get all departments and convert to array for prompt
     const departments = await getDepartments.getAllDepartments();
     const departmentsArr = departments.map((item) => item.name);
 
@@ -27,7 +28,7 @@ const addRolePrompt = async () => {
       }
     ]);
     
-    // get role id
+    // get role id 
     const filterDepartments = departments.filter((value) => {
       if (value.name === prompt.department) return value;
     });

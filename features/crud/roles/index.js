@@ -2,35 +2,13 @@ const router = require('express').Router();
 let db = require('../../../db')
 
 
-// get all roles
+// query all roles
 router.get('/', (req, res)=>{
     db.query(`SELECT * FROM roles;`, (err, data)=>{
         if (err) {
            return res.status(500).json({msg: "well now", err:err})
         } 
             res.json(data)
-       
-    })
-})
-
-// get all roles
-router.get('/titles', (req, res)=>{
-    db.query(`SELECT title FROM roles;`, (err, data)=>{
-        if (err) {
-           return res.status(500).json({msg: "well now", err:err})
-        } 
-            res.json(data)
-       
-    })
-})
-
-// get one role
-router.get('/:id', (req, res)=>{
-    const id = req.params.id
-    db.query(`SELECT * FROM roles WHERE id=?;`,[id], (err, data)=>{
-        if (err) {
-           return res.status(500).json({msg: "well meow", err:err})
-        } else res.json(data)
        
     })
 })

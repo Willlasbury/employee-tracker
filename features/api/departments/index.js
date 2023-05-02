@@ -1,3 +1,4 @@
+// return all departments
 const getAllDepartments = async () => {
   try {
     const results = await fetch("http://localhost:3000/departments/", {
@@ -10,6 +11,7 @@ const getAllDepartments = async () => {
   }
 };
 
+// return one department based on id 
 const getOneDepartment = () => {
   const func = async (id) => {
     let results = await fetch(`http://localhost:3000/departments/${id}`, {
@@ -22,6 +24,7 @@ const getOneDepartment = () => {
   };
 };
 
+// create a new department
 const addDepartment = async (name) => {
   try {
     const newDepartment = {

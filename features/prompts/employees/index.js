@@ -5,7 +5,7 @@ const getEmployees = require("../../api/employees");
 
 const addEmployeePrompt = async () => {
   try {
-    // get roles for the prompt
+    // get roles and convert to array of titles for the prompt
     const roles = await getRoles.getAllRoles();
     const roleArr = roles.map((item) => item.title);
 
@@ -44,21 +44,21 @@ const addEmployeePrompt = async () => {
         choices: managerArr,
       },
     ]);
-    // get role id
+
+    // get specific role 
     const filterRoles = roles.filter((value) => {
       if (value.title === prompt.role) return value;
     });
     const roleId = filterRoles[0].id;
 
-    // get manager id
+    // get specific manager id
     const filterManager = managers.filter((value) => {
       if (`${value.first_name} ${value.last_name}` === prompt.manager) {
         return value;
       }
     });
-    // console.log("filterManager:", filterManager)
     const managerId = filterManager[0].id || undefined;
-    // console.log("managerId:", managerId)
+
     // call function to create employee
     const response = await employeeFetch.addEmployee(
       prompt.first_name,
@@ -67,7 +67,6 @@ const addEmployeePrompt = async () => {
       managerId
     );
 
-    // console.log(response)
     if (response.statusText === "OK") {
       console.log(
         `\nYou have added ${prompt.first_name} ${prompt.last_name} to your employees.`

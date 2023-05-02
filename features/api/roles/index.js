@@ -1,3 +1,4 @@
+// get all roles
 const getAllRoles = async () => {
   try {
     const results = await fetch("http://localhost:3000/roles/", {
@@ -10,18 +11,7 @@ const getAllRoles = async () => {
   }
 };
 
-const getAllRoleTitles = async () => {
-  try {
-    const results = await fetch("http://localhost:3000/roles/titles", {
-      method: "GET",
-    });
-    const json = await results.json();
-    return json;
-  } catch (err) {
-    throw console.log(err);
-  }
-};
-
+// get role by id
 const getOneRole = async () => {
   try {
     let results = await fetch(`http://localhost:3000/roles/${id}`, {
@@ -36,7 +26,7 @@ const getOneRole = async () => {
   }
   };
 
-
+// create a new role
 const addRole = async (title, salary, deparmentId) => {
   try {
     const newEmployee = {
@@ -56,4 +46,4 @@ const addRole = async (title, salary, deparmentId) => {
   }
 };
 
-module.exports = { getAllRoles, getOneRole, addRole, getAllRoleTitles };
+module.exports = { getAllRoles, getOneRole, addRole };

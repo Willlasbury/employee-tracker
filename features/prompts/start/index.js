@@ -10,6 +10,8 @@ const updateEmployeeRolePrompt = require("../employees/updateEmployee");
 
 const start = async () => {
   try {
+    // create a list to link functions to user options and use display property to sort
+    // if data needs to be shown on the page
     const options = [
       { req: "update an emplyee role", display:false, res: updateEmployeeRolePrompt },
       {
@@ -28,9 +30,11 @@ const start = async () => {
       { req: "add a department", display:false, res: addDepartment },
     ];
 
+    // create an array of user choices from options
     const promptChoices = await options.map((item) => item.req);
 
-    let prompt = await inq.prompt([
+    // display and get the users choice
+    const prompt = await inq.prompt([
       {
         type: "list",
         name: "start",
@@ -39,13 +43,16 @@ const start = async () => {
       },
     ]);
 
+    // take the users choice and compare to the avaible options and find the 
+    // appropriate function to run. It will also check whether there is data to display
+    // and call the console.table function to display the response data from the function.
     for (let i = 0; i < options.length; i++) {
       const option = options[i]
       const request = option.req;
       if (request === prompt.start) {
         if (options[i].display){
         const response = await option.res();
-        console.table("response:", response)
+        console.table(response)
       } else {
         await options[i].res();
       }

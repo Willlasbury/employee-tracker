@@ -2,7 +2,7 @@ const router = require('express').Router();
 let db = require('../../../db')
 
 
-// get all employees
+// query all employees from employee table
 router.get('/', (req, res)=>{
     db.query(`SELECT * FROM employees;`, (err, data)=>{
         if (err) {
@@ -13,7 +13,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-// get managers
+// query managers (or employees with manager_id = NULL) from employee table
 router.get('/managers', (req, res)=>{
     db.query(`SELECT * FROM employees WHERE manager_id IS NULL;`, (err, data)=>{
         if (err) {
@@ -24,7 +24,7 @@ router.get('/managers', (req, res)=>{
     })
 })
 
-// get one role
+// query employees by id from employee table
 router.get('/:id', (req, res)=>{
     const id = req.params.id
     db.query(`SELECT * FROM employees WHERE id=?;`,[id], (err, data)=>{
@@ -35,7 +35,7 @@ router.get('/:id', (req, res)=>{
     })
 })
 
-// create role
+// create new employee in employee table
 router.post('/', (req, res)=>{
     const first_name = req.body.first_name
     const last_name = req.body.last_name
@@ -50,7 +50,7 @@ router.post('/', (req, res)=>{
     })
 })
 
-// update role
+// update role of employee
 router.put('/:id', (req, res)=>{
     
     const roleId = req.body.role_id
@@ -63,7 +63,7 @@ router.put('/:id', (req, res)=>{
     })
 })
 
-// delete role
+// delete employee by id
 router.delete('/:id', (req,res) => {
     let id = req.params.id;
     db.query( `DELETE FROM employees WHERE id=?`, [id], (err, data) => {

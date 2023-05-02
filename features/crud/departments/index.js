@@ -2,7 +2,7 @@ const router = require('express').Router();
 let db = require('../../../db')
 
 
-// get all departments
+// query all departments from db
 router.get('/', (req, res)=>{
     db.query(`SELECT * FROM departments;`, (err, data)=>{
         if (err) {
@@ -13,7 +13,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-// get one department
+// query department by id
 router.get('/:id', (req, res)=>{
     const id = req.params.id
     db.query(`SELECT * FROM departments WHERE id=?;`,[id], (err, data)=>{
@@ -24,7 +24,7 @@ router.get('/:id', (req, res)=>{
     })
 })
 
-// create department
+// create a new department in db
 router.post('/', (req, res)=>{
     const newDepartment = req.body.new_department
     db.query(`INSERT INTO departments (name) VALUE
@@ -35,7 +35,7 @@ router.post('/', (req, res)=>{
     })
 })
 
-// update department
+// update department in db
 router.put('/:id', (req, res)=>{
     const id = req.params.id;
     const department = req.body.department;
@@ -46,7 +46,7 @@ router.put('/:id', (req, res)=>{
     })
 })
 
-// delete department
+// delete department form db
 router.delete('/:id', (req,res) => {
     let id = req.params.id;
     db.query( `DELETE FROM departments WHERE id=?`, [id], (err, data) => {
